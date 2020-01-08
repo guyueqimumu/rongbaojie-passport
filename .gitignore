@@ -1,5 +1,5 @@
 logs
 *.log
 .idea
-*/vendor
 Test.php
+vendor/

@@ -15,6 +15,8 @@ class Request
 
     public $logFile;
 
+    public $header = ["content-type: application/x-www-form-urlencoded; charset=UTF-8"];
+
     protected $httpTimeout = 60;
 
     protected $connectTimeout = 8;
@@ -22,6 +24,11 @@ class Request
     public function __construct()
     {
         $this->logFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'Log/request.log';
+    }
+
+    public function setHeader(string $header)
+    {
+        $this->header[] = $header;
     }
 
     public function debug()
@@ -52,20 +59,22 @@ class Request
             switch ($method) {
                 case "GET":
                     curl_setopt($ch, CURLOPT_HTTPGET, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
                     break;
                 case "POST":
                     curl_setopt($ch, CURLOPT_POST, true);
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $postBodyString);
-                    $header = array("content-type: application/x-www-form-urlencoded; charset=UTF-8");
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
                     break;
                 case "PUT":
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $postBodyString);
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
                     break;
                 case "DELETE":
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $postBodyString);
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
                     break;
             }
             $response = curl_exec($ch);
@@ -91,9 +100,9 @@ class Request
         }
     }
 
-    public function setLogPath()
+    public function setLogPath(string $logFile)
     {
-        echo dirname(__DIR__);
+        $this->logFile = $logFile;
     }
 
     public function writeLog($msg)

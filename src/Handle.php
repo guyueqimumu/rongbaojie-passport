@@ -11,7 +11,7 @@ use Passport\Client\Http;
  * Date: 2019/12/30
  * Time: 16:37
  */
-class handle
+class Handle
 {
 
     public $errorMsg = '';

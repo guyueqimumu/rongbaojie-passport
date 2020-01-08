@@ -1,15 +1,16 @@
 {
-  "name": "rongbaojie/passport",
-  "description": "",
-  "type": "library",
-  "require": {
-    "php": ">=7.2.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Passport\\Client\\": "src"
-    }
-  },
-  "minimum-stability": "dev",
-  "license": "MIT"
+    "name": "rongbaojie/passport",
+    "description": "",
+    "type": "library",
+    "require": {
+        "php": ">=7.2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Passport\\Client\\": "src",
+            "Passport\\Demo\\": "demo"
+        }
+    },
+    "minimum-stability": "dev",
+    "license": "MIT"
 }

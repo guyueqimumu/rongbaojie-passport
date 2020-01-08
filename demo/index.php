@@ -16,7 +16,7 @@ use Passport\Client\Http\Request;
 class Index
 {
     public $passportDomain = 'http://api.hql.passport.xy.cn';
-    public $openInsuranceDomain = 'http://api.insurance.apen.third.part.site.xy.cn';
+    public $openInsuranceDomain = 'http://api.insurance.open.platform.xy.cn/';
     public $appId = '10000';
     public $appSecret = '4b797e878798db8353bdbcc9a631398c';
     public $testAccount = 'administrator_1';

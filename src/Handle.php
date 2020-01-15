@@ -31,7 +31,7 @@ class Handle
         $this->appId = $option['appId'];
     }
 
-    public function getUserInfo($url, $ticket)
+    public function getUserInfo($url, $ticket, \Passport\Client\Http\Request $request)
     {
         $postData = [
             'algorithm' => 'sha1',
@@ -43,7 +43,6 @@ class Handle
         $postData['sign'] = $this->sign($postData);
         $postBodyString = http_build_query($postData);
         $postBodyString .= '&appSecret=' . $this->appSecret;
-        $request = new Http\Request();
         return $request->curl($url, $postBodyString);
     }
 

@@ -74,7 +74,8 @@ class Index
             'appSecret' => $this->appSecret,
         ]);
         $url = $this->openInsuranceDomain . "/Session/getUserInfo";
-        return $handle->getUserInfo($url, $ticket);
+        $request = new Request();
+        return $handle->getUserInfo($url, $ticket, $request);
     }
 
     public static function execute()

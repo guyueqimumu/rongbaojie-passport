@@ -108,10 +108,9 @@ class Request
     public function writeLog($msg)
     {
         $folder = dirname($this->logFile);
-        if (!is_dir($folder)) {
-            mkdir($folder, 0777);
+        if (is_dir($folder)) {
+            error_log('[' . date('Y-m-d  H:i:s') . ']' . $msg . PHP_EOL, 3, $this->logFile);
         }
-        error_log('[' . date('Y-m-d  H:i:s') . ']' . $msg . PHP_EOL, 3, $this->logFile);
     }
 
 }

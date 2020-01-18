@@ -2,9 +2,6 @@
 
 namespace Passport\Client;
 
-use Passport\Client\Encryption\Encryption;
-use Passport\Client\Http;
-
 /**
  * Created by QiLin.
  * User: NO.01
@@ -21,6 +18,8 @@ class Handle
     public $appId = '10000';
 
     public $appSecret = '4b797e878798db8353bdbcc9a631398c';
+
+    public $param = [];
 
     public function __construct(array $option)
     {
@@ -46,7 +45,13 @@ class Handle
         return $request->curl($url, $postBodyString);
     }
 
-    public function sign(array $data, $algorithm = 'sha1')
+    public function send($url, \Passport\Client\Http\Request $request, $methods = "POST")
+    {
+        $postBodyString = $this->getParam();
+        return $request->curl($url, http_build_query($postBodyString), $methods);
+    }
+
+    public function sign(array $data, $algorithm = 'sha1'): string
     {
         $sign = '';
         ksort($data);
@@ -64,6 +69,26 @@ class Handle
     public function setAppSecret($appSecret)
     {
         $this->appSecret = $appSecret;
+    }
+
+    public function setParam(array $array)
+    {
+        $this->param = array_merge($this->param, $array);
+    }
+
+    public function getParam(): array
+    {
+        $param = [
+            'algorithm' => 'sha1',
+            'appId' => $this->appId,
+            'timestamp' => time(),
+            'noncer' => rand(1000, 99999),
+        ];
+        $param = array_merge($this->param, $param);
+        $param['sign'] = $this->sign($param);
+        $param['appSecret'] = $this->appSecret;
+        $this->param = $param;
+        return $this->param;
     }
 }
 

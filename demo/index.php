@@ -75,7 +75,9 @@ class Index
         ]);
         $url = $this->openInsuranceDomain . "/Session/getUserInfo";
         $request = new Request();
-        return $handle->getUserInfo($url, $ticket, $request);
+        $handle->setParam(['ticket' => $ticket]);
+        return $handle->send($url, $request);
+//        return $handle->getUserInfo($url, $ticket, $request);
     }
 
     public static function execute()
